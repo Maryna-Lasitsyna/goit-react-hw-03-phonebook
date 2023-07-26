@@ -15,27 +15,22 @@ class App extends Component {
     filter: '',
   };
 
-  // componentDidMount() {
-  //   // console.log('App componentDidMount');
-
-  //   const todos = localStorage.getItem('todos');
-  //   const parsedTodos = JSON.parse(todos);
-
-  //   if (parsedTodos) {
-  //     this.setState({ todos: parsedTodos });
-  //   }
-  // }
-
   componentDidMount() {
+      
     const contacts = localStorage.getItem('contacts');
-    const parseContacts = JSON.parse(contacts);
+    const parsedContacts = JSON.parse(contacts);
 
-    if (parseContacts) {
-      this.setState({contacts: parseContacts})
+    if (parsedContacts) {
+      this.setState({contacts: parsedContacts})
     }
   }
 
+  componentDidUpdate(prevState) {
   
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts',JSON.stringify(this.state.contacts))
+    }
+}
 
   addContact = newContact => {
     this.setState(prevState => ({
